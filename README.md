@@ -108,28 +108,60 @@ Resim :
 
 2. pushd
 
+```powershell
+pushd .
+```
+
 pushd komutu, mevcut konumu kaydeder ve belirtilen dizine geçiş yapar. 
 Eğer hiçbir dizin belirtmezseniz, mevcut dizini kaydeder.
 
 3. cd
 
+```powershell
+cd \
+```
+
 cd komutu, "change directory" anlamına gelir ve belirttiğiniz dizine geçiş yapmanızı sağlar. 
-Örneğin, cd \ komutu ile kök dizine dönebilirsiniz.
+Örneğin, cd \ komutu ile root dizine dönebilirsiniz.
 
 4. dir
+
+```powershell
+dir
+```
 
 dir komutu, mevcut dizindeki dosya ve klasörleri listelemek için kullanılır. 
 Bu komut, dosyaların isimlerini, boyutlarını ve son yazılma tarihlerini gösterir.
 
+Resim :
+
+![Resim](https://i.ibb.co/SNTSTWL/resim-2024-09-29-215559115.png)
+
 5. pwd
+
+```powershell
+pwd
+```
 
 pwd (print working directory) komutu, mevcut çalışma dizininizin yolunu gösterir. 
 Bu, hangi dizinde bulunduğunuzu kontrol etmek için faydalıdır.
 
+Resim :
+
+![Resim](https://i.ibb.co/C2gG09X/resim-2024-09-29-215738825.png)
+
 6. popd
+
+```powershell
+popd
+```
 
 popd komutu, daha önce kaydettiğiniz konuma geri dönmenizi sağlar. 
 Bu, pushd ile kaydedilen konumu geri yükler.
+
+Resim : 
+
+![Resim](https://i.ibb.co/mtqSzbP/resim-2024-09-29-215929244.png)
 
 Bu örnekte, ilk olarak Prompt fonksiyonu ile istemin görünümünü özelleştiriyoruz. 
 Ardından pushd . komutuyla mevcut konumu kaydediyoruz. cd \ ile kök dizine geçiyoruz ve dir komutunu kullanarak dizindeki öğeleri listeliyoruz. 
