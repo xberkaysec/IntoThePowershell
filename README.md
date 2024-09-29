@@ -166,3 +166,28 @@ Resim :
 Bu örnekte, ilk olarak Prompt fonksiyonu ile istemin görünümünü özelleştiriyoruz. 
 Ardından pushd . komutuyla mevcut konumu kaydediyoruz. cd \ ile kök dizine geçiyoruz ve dir komutunu kullanarak dizindeki öğeleri listeliyoruz. 
 Son olarak, popd ile önceki konuma geri dönüyoruz ve pwd ile mevcut dizini kontrol ediyoruz.
+
+Ek olarak ipconfig komutu.
+
+```powershell
+ipconfig 
+```
+
+ipconfig, ağ bağlantılarınızın IP adreslerini ve diğer yapılandırma bilgilerini görüntülemek için kullanılan bir komuttur. 
+PowerShell'de bu komutu çalıştırdığınızda, mevcut ağ bağlantılarınız hakkında detaylı bilgiler alırsınız. 
+
+Örneğin:
+
+```powershell
+PS > ipconfig
+
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe20::e4a2:9371:10ea:98da%4
+   IPv4 Address. . . . . . . . . . . : 192.168.1.20
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+```
+
+Bu çıktıda, Ethernet adaptörünüzün DNS suffix'i, IP adresi, alt ağ maskesi ve varsayılan ağ geçidi gibi bilgiler yer almaktadır.
