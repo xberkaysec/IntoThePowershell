@@ -364,7 +364,7 @@ Zafer bayramı tarihi olan "08/30/25" tarihine kadar ne kadar zaman kaldığın�
 Bu komut, belirtilen tarihi bir tarih nesnesine dönüştürür ve mevcut tarihten çıkararak kalan süreyi hesaplar:
 
 ```powershell
-$result = [DateTime] "06/21/2011" - [DateTime]::Now
+$result = [DateTime] "08/30/25" - [DateTime]::Now
 $result.TotalDays
 ```
 
