@@ -330,3 +330,43 @@ Resim :
 
 Bu örnek, Stop-Process cmdlet'inin sunduğu işlevselliği daha doğrudan gösterse de, zengin nesnelerle etkileşimde bulunma yeteneğinizi vurgular.
 
+# PowerShell ile Yönetici İşlemleri: İlk Sınıf Kullanıcılar
+
+PowerShell, .NET Framework'ten nesne desteği ile kullanıcılarının işlerini hızlandırırken, 
+aynı zamanda yönetimsel görevler üzerine de yoğunlaşmaya devam etmektedir. 
+Bu yazıda, PowerShell'in yönetimsel yeteneklerini ve sunduğu kullanışlı işlevleri keşfedeceğiz.
+
+## Yönetimsel Sabitler: MB ve GB
+
+PowerShell, megabayt (MB) ve gigabayt (GB) gibi standart yönetimsel sabitleri destekler. 
+Örneğin, 100 GB'lık bir sabit diski CD-ROM'a yedeklemek için kaç disk gerektiğini hesaplayalım:
+
+```powershell
+100GB / 650MB
+```
+
+Bu komutun sonucu yaklaşık olarak 157,53... disk gerektirdiğini gösterir.
+
+## Tarih ve Zaman İşlemleri
+
+.NET Framework, geliştiriciler için bir platform olmasının yanı sıra yöneticiler için de büyük bir işlevsellik sunar. 
+Örneğin, 2024 yılı bir artık yıl mı? PowerShell bu sorunun cevabını kolayca verebilir:
+
+```powershell
+[DateTime]::IsLeapYear(2024)
+```
+
+Sonuç olarak True (doğru) döner.
+
+## Kalan Süre
+
+Zafer bayramı tarihi olan "08/30/25" tarihine kadar ne kadar zaman kaldığını belirlemek için aşağıdaki komutları kullanabilirsiniz. 
+Bu komut, belirtilen tarihi bir tarih nesnesine dönüştürür ve mevcut tarihten çıkararak kalan süreyi hesaplar:
+
+```powershell
+$result = [DateTime] "06/21/2011" - [DateTime]::Now
+$result.TotalDays
+```
+
+Bu işlem sonucunda, zafer bayramına kalan gün sayısını görebilirsiniz. 
+
