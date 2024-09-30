@@ -191,3 +191,142 @@ Ethernet adapter Ethernet:
 ```
 
 Bu çıktıda, Ethernet adaptörünüzün DNS suffix'i, IP adresi, alt ağ maskesi ve varsayılan ağ geçidi gibi bilgiler yer almaktadır.
+
+# PowerShell Cmdlet'leri: Temel Bilgiler ve Kullanım
+
+PowerShell, geleneksel Windows yürütülebilir dosyaların yanı sıra, 
+cmdlet adı verilen güçlü bir komut türünü de destekler. 
+Cmdlet'ler, "Verb-Noun" (Fiil-İsim) yapısında adlandırılır; örnek olarak Get-Process, Get-History ve Stop-Process verilebilir.
+
+## Cmdlet Kullanımı
+
+Aşağıdaki örnekte, belirli bir işlemi isimle almak için Get-Process cmdlet'ini kullanıyoruz:
+
+```powershell
+Get-Process -Name opera
+```
+
+(opera sizde yoksa opera yerine başka bir isim yazın örneğin, audiodg vb.)
+
+Bu komut, "opera" adlı işlemin bilgilerini getirir:
+
+```powershell
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   2088      67   135800     316124      41,73   6756   1 opera
+    370      24    24404     106256       1,17   9260   1 opera
+    927      45   231364     188380      22,97   9324   1 opera
+    355      23    16504      42420       3,95   9340   1 opera
+    236      16     9728      21120       0,27   9444   1 opera
+    380      25    25768      99136       0,58   9624   1 opera
+    371      24    21092      96476       0,61   9692   1 opera
+    537      29    50608     139152      21,31   9724   1 opera
+    644      28    59336     152228       3,83   9816   1 opera
+    355      23    18208      90844       0,48   9984   1 opera
+    297      18     8012      21472       1,06   9992   1 opera
+```
+
+
+## Cmdlet'lerde Verbs (Fiiller)
+
+PowerShell'de yaygın olarak kullanılan fiillerin (verbs) listesini öğrendiğinizde, 
+yeni isimlerle (nouns) çalışmak daha kolay hale gelir. 
+Örneğin, bir nesne ile çalışırken Get, Set, Start ve Stop gibi standart eylemler her zaman geçerlidir. 
+
+## Otomatik Tamamlama ve Kısayollar
+
+PowerShell, cmdlet ve parametre adlarını otomatik tamamlama özelliği sunar. 
+
+Örneğin:
+
+```powershell
+Get-Pr<TAB> -N<TAB> lsass
+```
+
+Hızlı etkileşimli kullanım için, bu kadar yazmak bile fazla olabilir. 
+PowerShell, yaygın komutlar için takma adlar (alias) tanımlar ve kendi takma adlarınızı oluşturmanıza da izin verir. 
+Ayrıca, PowerShell'de yalnızca parametre adını yeterince yazarak belirsizliği ortadan kaldırmanız yeterlidir.
+PowerShell büyük/küçük harf duyarsızdır. 
+
+Aşağıdaki örnekte, gps takma adını kullanarak ve parametre kısaltmasını uygulayarak daha az yazabilirsiniz:
+
+```powershell
+gps -n opera
+```
+
+Resim : 
+
+![Resim](https://i.ibb.co/XpQvNS6/Cmdlet-gps.png)
+
+## Pozisyonel Parametreler
+
+PowerShell, cmdlet'lerde pozisyonel parametreleri destekler. 
+Pozisyonel parametreler, parametre değerlerini komut satırında belirli bir konumda sağlayarak adla belirtme zorunluluğunu ortadan kaldırır. 
+Örneğin, Get-Process cmdlet'i ilk pozisyonel parametre olarak bir işlem adı alır. 
+
+Bu parametre, joker karakterleri de destekler:
+
+```powershell
+gps o*a
+```
+
+![Resim](https://i.ibb.co/9g067jR/Gps-Cmdlet-2.png)
+
+# PowerShell'de Derin Entegrasyon: Nesnelerle Çalışmanın Gücü
+
+PowerShell, yapılandırılmış verileri ve zengin işlevsel nesneleri nasıl ele aldığıyla kendini göstermeye başlar. 
+PowerShell'in nesne tabanlı yapısını keşfedeceğiz ve bunun nasıl etkili bir şekilde kullanılabileceğini öğreneceğiz.
+
+## Temel Nesne Oluşturma
+
+PowerShell'de basit bir metin dizesi oluşturmak için aşağıdaki komutu kullanabilirsiniz:
+
+```powershell
+"Merhaba!"
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/0Q2SVqx/Hello-Powershell.png)
+
+Bu komut çalıştırıldığında, "Merhaba!" ifadesi ekrana yazdırılır. 
+
+Örneğin, bu nesnenin Length özelliğini kullanarak kaç karakter içerdiğini öğrenebilirsiniz:
+
+```powershell
+"Merhaba!".Length
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/dW1sNTd/Powershell-lenght.png)
+
+Sonuç olarak, 8 karakter olduğunu göreceksiniz.
+
+## Cmdlet'ler ve Nesne Çıktısı
+
+Tüm PowerShell komutları, çıktı olarak nesneler üretir. 
+Örneğin, Get-Process cmdlet'i, bir System.Diagnostics.Process nesnesi oluşturur. 
+Bu nesneyi bir değişkende saklayabilirsiniz. PowerShell'de değişken isimleri $ karakteri ile başlar. 
+Eğer Notepad uygulamanız açıksa, aşağıdaki komut onu bir değişkende saklayacaktır:
+
+```powershell
+$process = Get-Process notepad
+```
+
+## Nesne Yöntemleri ile Etkileşim
+
+Elde ettiğiniz Process nesnesi, .NET Framework'ten tam işlevsel bir nesnedir. 
+Bu nesne üzerinde çeşitli işlemler gerçekleştirmek için yöntemleri çağırabilirsiniz. 
+Örneğin, bir işlemi durdurmak için Kill() yöntemini kullanabilirsiniz:
+
+```powershell
+$process.Kill()
+```
+
+Resim : 
+
+![Resim](https://i.ibb.co/6ggVrRy/Powershell-Nesne.png)
+
+Bu örnek, Stop-Process cmdlet'inin sunduğu işlevselliği daha doğrudan gösterse de, zengin nesnelerle etkileşimde bulunma yeteneğinizi vurgular.
+
