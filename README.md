@@ -561,3 +561,54 @@ notepad script.ps1
 
 Bu aşamada, dosyadaki içeriği gözden geçirebilir ve saklamak istediğiniz komutları düzenleyebilirsiniz.
 
+# PowerShell ile Teknolojileri Birleştirme
+
+PowerShell, .NET Framework'ü tam anlamıyla kullanmanıza olanak tanırken, desteklediği yaygın teknolojilerle de dikkat çekiyor. 
+Aşağıda, PowerShell ile XML, WMI, CIM ve COM nesneleri gibi çeşitli teknolojilerle nasıl çalışabileceğinizi gösteren örnekler bulunmaktadır.
+
+## XML ile Çalışma
+
+PowerShell, XML verileriyle etkileşim kurmanıza olanak tanır. 
+
+Aşağıdaki örnekte, XML içeriğini nasıl işleyebileceğinizi görebilirsiniz:
+
+```powershell
+$xmlContent = [xml] $content
+$xmlContent
+$xmlContent.rss
+$xmlContent.rss.channel.item | select Title
+```
+
+## WMI ve CIM ile Etkileşim
+
+PowerShell, Windows Management Instrumentation (WMI) ve Common Information Model (CIM) ile çalışma yeteneğine sahiptir. 
+Aşağıdaki örnek, BIOS bilgilerini almak için Get-CimInstance cmdlet'ini kullanmaktadır:
+
+```powershell
+Get-CimInstance Win32_Bios
+```
+
+## Active Directory ile Çalışma
+
+PowerShell, Active Directory Service Interfaces (ADSI) ile etkileşim kurmanıza da olanak tanır. 
+
+Aşağıdaki örnekte, yerel yöneticinin bilgilerini alabilirsiniz:
+
+
+```powershell
+[ADSI] "WinNT://./Administrator" | Format-List *
+```
+
+▎COM Nesneleri ile Çalışma
+
+PowerShell, geleneksel COM nesneleri ile de çalışmanıza olanak tanır. 
+Aşağıdaki örnekte, Windows Güvenlik Duvarı ayarlarını almak için bir COM nesnesi oluşturulmuştur:
+
+```powershell
+$firewall = New-Object -com HNetCfg.FwMgr
+$firewall.LocalPolicy.CurrentProfile
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/mhRytdN/resim-2024-10-01-230234517.png)
