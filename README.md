@@ -612,3 +612,54 @@ $firewall.LocalPolicy.CurrentProfile
 Resim :
 
 ![Resim](https://i.ibb.co/mhRytdN/resim-2024-10-01-230234517.png)
+
+# PowerShell ile Namespace Navigasyonu: Sağlam Bir Kılavuz
+
+PowerShell, sistemle etkileşim kurmanın birçok yolunu sunar ve bunlardan biri de sağlayıcılardır.
+PowerShell sağlayıcıları, veri depolarında gezinmenizi ve yönetmenizi sağlar. 
+Bu, dosya sistemi ile çalışırken kullandığınız tekniklerle aynı yöntemleri kullanarak yapılabilir. 
+Aşağıda, bu sağlayıcılarla nasıl çalışabileceğinizi gösteren bazı örnekler bulunmaktadır.
+
+
+## Dosya Sistemi Üzerinde Gezinme
+
+PowerShell ile dosya sisteminde gezinmek oldukça basittir. 
+Aşağıdaki örnek, C: sürücüsünde nasıl gezineceğinizi göstermektedir:
+
+```powershell
+Set-Location C:\
+Get-ChildItem
+```
+
+Bu komutları çalıştırdığınızda, belirtilen dizindeki dosya ve klasörlerin listesini alırsınız:
+
+Resim :
+
+![Resim](https://i.ibb.co/H4JHfkK/resim-2024-10-01-231452807.png)
+
+
+## Kayıt Defteri Üzerinde Gezinme
+
+PowerShell, Windows kayıt defteri üzerinde de gezinmenize olanak tanır. 
+Aşağıdaki örnekte, Kayıt Defteri'nin "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows" yolunda nasıl gezineceğinizi görebilirsiniz:
+
+```powershell
+Set-Location HKCU:\Software\Microsoft\Windows\
+Get-ChildItem
+```
+
+Bu komutlar, belirtilen kayıt defteri anahtarındaki alt anahtarları ve değerleri listeleyecektir.
+
+## Sertifika Deposu Üzerinde Gezinme
+
+PowerShell, makinenizin sertifika deposu üzerinde de gezinmenize imkan tanır. 
+Aşağıdaki örnek, "CurrentUser\\Root" sertifika deposunda nasıl gezineceğinizi göstermektedir:
+
+```powershell
+Set-Location cert:\CurrentUser\Root
+Get-ChildItem
+```
+
+Bu komutlar çalıştırıldığında, sertifika deposundaki sertifikaların listesi görüntülenecektir.
+
+PowerShell sağlayıcıları, sistem verilerine erişimi ve yönetimini son derece kolaylaştırır. Dosya sistemi, kayıt defteri ve sertifika deposu gibi farklı veri kaynaklarında gezinmek için aynı teknikleri kullanarak verimli bir şekilde çalışabilirsiniz.
