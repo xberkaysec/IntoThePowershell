@@ -523,3 +523,41 @@ $webContent.Substring(0, 100)
 Resim :
 
 ![Resim](https://i.ibb.co/SdkdXmm/Web-Client-PS.png)
+
+# Ad Hoc Geliştirme ile PowerShell Kullanımı
+
+PowerShell, etkileşimli yönetim ile script yazma arasındaki sınırları bulanıklaştırarak, 
+kullanıcıların hızlı bir şekilde ad hoc betikler geliştirmesine olanak tanır. 
+PowerShell oturumlarınızın geçmişi, bu tür geliştirmeler için mükemmel bir temel oluşturur. 
+Aşağıda, PowerShell oturumunuzdaki komut geçmişini nasıl kullanabileceğinizi gösteren bir örnek bulunmaktadır.
+
+# Komut Geçmişini Kullanarak Script Oluşturma
+
+PowerShell'de Get-History cmdlet'ini kullanarak oturumunuzun geçmişini alabilir ve 
+her bir komutun CommandLine özelliğini (yani yazdığınız komutu) yeni bir script dosyasına yazabilirsiniz. 
+İşte bu süreci adım adım nasıl gerçekleştireceğiniz:
+
+## Adım 1: Komut Geçmişini Alın
+
+Aşağıdaki komutu kullanarak geçmişinizi alabilirsiniz:
+
+```powershell
+ Get-History | ForEach-Object { $_.CommandLine } > C:\Users\BerKolik\Desktop\Software\Betik\PowerShell\The-Powershell-1\Project\History\script.ps1
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/4WMCdVj/Get-History-PS.png)
+
+Bu komut, oturum geçmişinizdeki her bir komutun satırını alır ve dosyaya yazar.
+
+## Adım 2: Script Dosyasını Düzenleyin
+
+Oluşturduğunuz betik dosyasını Notepad gibi bir metin düzenleyici ile açabilirsiniz:
+
+```
+notepad script.ps1
+```
+
+Bu aşamada, dosyadaki içeriği gözden geçirebilir ve saklamak istediğiniz komutları düzenleyebilirsiniz.
+
