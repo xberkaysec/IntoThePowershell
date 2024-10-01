@@ -489,3 +489,37 @@ Resim :
 
 PowerShell'de keşif yapmak, sistem yöneticileri ve geliştiriciler için kritik bir beceridir. Get-Command, Get-Help ve Get-Member gibi cmdlet'ler, komutları anlamanızı ve etkili bir şekilde kullanmanızı sağlar. Bu araçları kullanarak PowerShell becerilerinizi geliştirebilir ve sistem yönetimini daha verimli hale getirebilirsiniz. 
 
+# PowerShell ile Her Yerde Komut Dosyası Yazma
+
+PowerShell, komut satırında yazılan komutlar ile bir betikte (script) yer alan komutlar arasında hiçbir ayrım yapmaz. 
+En sevdiğiniz cmdlet’ler scriptlerde çalışırken, en sevdiğiniz script teknikleri (örneğin, foreach ifadesi) doğrudan komut satırında da kullanılabilir. Aşağıdaki örnek, çalışan tüm süreçlerin (process) id sayısını toplamak için nasıl bir işlem yapabileceğinizi göstermektedir:
+
+```powershell
+$idCount = 0
+foreach($process in Get-Process) { $idCount += $process.ID }
+$idCount
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/M5r8Q3V/Script-PS.png)
+
+PowerShell, koleksiyonlar hakkında istatistikler ölçmek için Measure-Object adlı bir komut sunmasına rağmen, 
+bu kısa örnek, PowerShell’in genellikle ayrı bir script veya programlama diline ihtiyaç duyan teknikleri nasıl uygulamanıza izin verdiğini göstermektedir.
+
+# .NET Framework ile Etkileşim
+
+PowerShell, PowerShell scriptleme anahtar kelimelerinin yanı sıra, aşina olduğunuz,
+.NET Framework nesneleriyle de doğrudan oluşturup çalışmanıza olanak tanır. 
+PowerShell, Visual Studio’daki C# anlık moduna oldukça benzer hale gelir. 
+Aşağıdaki örnek, bir web sayfasını alıp içeriğini nasıl işleyebileceğinizi göstermektedir:
+
+```powershell
+$webClient = New-Object System.Net.WebClient
+$webContent = $webClient.DownloadString("http://testphp.vulnweb.com")
+$webContent.Substring(0, 100)
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/SdkdXmm/Web-Client-PS.png)
