@@ -370,3 +370,122 @@ $result.TotalDays
 
 Bu işlem sonucunda, zafer bayramına kalan gün sayısını görebilirsiniz. 
 
+# PowerShell'de Birleştirilebilir Komutlar
+
+PowerShell'de, bir komut çıktısı ürettiğinde, bu çıktıyı doğrudan başka bir komuta girdi olarak iletmek için bir pipeline karakteri (|) kullanabilirsiniz. İkinci komut, ilk komut tarafından üretilen nesneleri anladığında, sonuçlar üzerinde işlem yapabilir. 
+Bu şekilde birçok komutu zincirleyerek, birkaç basit işlemden güçlü bileşimler oluşturabilirsiniz.
+
+## Örnek: Dosyaları Taşıma
+
+Aşağıdaki komut, Path1 dizinindeki tüm öğeleri alır ve bunları Path2 dizinine taşır:
+
+```powershell
+Get-Item Path1\* | Move-Item -Destination Path2
+```
+
+## Daha Karmaşık Komutlar Oluşturma
+
+Daha karmaşık komutlar oluşturmak için pipeline'a ek cmdlet'ler ekleyebilirsiniz. 
+Aşağıdaki örnekte, ilk komut sistemde çalışan tüm süreçleri alır. 
+Bu süreçler, her bir gelen öğe üzerinde bir karşılaştırma yaparak Where-Object cmdlet'ine iletilir. 
+Burada karşılaştırma, ```$_.Handles -ge 500``` ifadesidir; bu ifade, mevcut nesnenin ($_ değişkeniyle temsil edilen) 
+Handles özelliğinin 500 veya daha büyük olup olmadığını kontrol eder. 
+Bu karşılaştırmayı sağlayan her nesne, Handles özelliğine göre sıralama yapmak için Sort-Object cmdlet'ine iletilir. 
+Son olarak, nesneler Format-Table cmdlet'ine iletilerek, süreçlerin Handles, ID, Name ve Description bilgilerini içeren bir tablo oluşturulur.
+
+## Örnek I-3: Karmaşık PowerShell Komutları
+
+Aşağıdaki PowerShell komutu, pipeline kullanarak çeşitli cmdlet'leri birleştirerek nasıl daha karmaşık işlemler yapılabileceğini göstermektedir:
+
+Get-Process |
+Where-Object { $_.Handles -ge 500 } |
+Sort-Object Handles |
+Format-Table Handles, ID, Name, Description -AutoSize
+
+Resim : 
+
+![Resim](https://i.ibb.co/MC9P5G5/resim-2024-10-01-121730565.png)
+
+# Kendinizi Koruma Teknikleri: PowerShell'de Güvenli Kullanım
+
+PowerShell, güçlü komutlar ve işlevsellik sunan bir shell ortamıdır. 
+Ancak, sistem bilgilerini değiştiren komutların kullanımı bazen endişe verici olabilir. 
+Özellikle, aşağıdaki gibi bir komutun ne yaptığını düşünmek önemlidir:
+
+```powershell
+gps [b-t]*[c-r] | Stop-Process 
+```
+
+Bu komut, b'den t'ye kadar olan harflerle başlayan ve c'den r'ye kadar olan harflerle biten tüm süreçleri durdurmayı amaçlar. 
+Peki, bu komutun ne yapacağını nasıl bilebilirsiniz? PowerShell, veri değiştiren komutlar için -WhatIf ve -Confirm parametrelerini destekler. 
+Bu parametreler, bir komutun ne yapacağını önceden görmenizi sağlar.
+
+## -WhatIf Parametresi ile Önizleme
+
+Aşağıdaki komutu kullanarak, Stop-Process komutunun hangi süreçleri durduracağını görebilirsiniz:
+
+```powershell
+gps [b-t]*[c-r] | Stop-Process -WhatIf
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/QNZ7P1m/resim-2024-10-01-124522940.png)
+
+Bu örnekte, -WhatIf parametresini kullanarak, Stop-Process komutunu uygulamadan önce hangi süreçlerin durdurulacağını önceden görebilirsiniz.
+
+Bu tür teknikleri kullanarak, kendinizi koruyabilir ve sisteminizin güvenliğini artırabilirsiniz. 
+Unutmayın, bilgi güçtür; doğru bilgiyi kullanmak ise güvenliğin anahtarıdır.
+
+# PowerShell'de Yaygın Keşif Komutları
+
+PowerShell, sistem yönetimi ve otomasyonu için güçlü bir araçtır. 
+Bu yazıda, PowerShell'de sıkça kullanılan keşif komutlarını inceleyeceğiz. 
+Ad hoc öğrenmenin en etkili yöntemlerinden biri, belirli bir anahtar kelime ile ilişkili komutları bulmaktır. 
+
+## Get-Command ile Komut Bulma
+
+Belirli bir wildcard ile eşleşen tüm komutları bulmak için Get-Command cmdlet'ini kullanabilirsiniz. 
+Örneğin, "process" kelimesini içeren PowerShell komutlarını ve Windows uygulamalarını bulmak için aşağıdaki komutu kullanabilirsiniz:
+
+```powershell
+Get-Command *process*
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/djdgz2B/resim-2024-10-01-132036404.png)
+
+## Get-Help ile Komut Açıklaması
+
+Bir komutun ne yaptığını öğrenmek için Get-Help cmdlet'ini kullanabilirsiniz. 
+Örneğin, Wait-Process komutunun detaylarını görmek için:
+
+```powershell
+Get-Help Wait-Process
+```
+
+Resim :
+
+![Resim](https://i.ibb.co/KqqFtWW/resim-2024-10-01-132432186.png)
+
+Bu komut, Wait-Process hakkında bilgi sağlayacaktır.
+
+## Get-Member ile Nesne Bilgisi Alma
+
+PowerShell, .NET Framework ile etkileşimde bulunmanıza olanak tanır. 
+Bir nesnenin (örneğin, bir .NET System.String) özelliklerini ve yöntemlerini görüntülemek için Get-Member cmdlet'ini kullanabilirsiniz. 
+Aşağıdaki komut, bir string nesnesinin tür adını ve üyelerini gösterir:
+
+```powershell
+"Merhaba!" | Get-Member
+```
+
+Çıktı şu şekilde olacaktır:
+
+Resim :
+
+![Resim](https://i.ibb.co/W5kzSMd/resim-2024-10-01-133405864.png)
+
+PowerShell'de keşif yapmak, sistem yöneticileri ve geliştiriciler için kritik bir beceridir. Get-Command, Get-Help ve Get-Member gibi cmdlet'ler, komutları anlamanızı ve etkili bir şekilde kullanmanızı sağlar. Bu araçları kullanarak PowerShell becerilerinizi geliştirebilir ve sistem yönetimini daha verimli hale getirebilirsiniz. 
+
